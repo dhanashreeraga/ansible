@@ -1,0 +1,42 @@
+---
+- hosts: al2
+  become: true
+  serial: 1
+  tasks:
+    - name:  1)install packages
+      apt:
+        name: git
+        state: absent
+      when: ansible_facts['distribution'] == "ubuntu"
+      register: ubuntu_out
+
+    - name: 2) install pakages
+      yum:
+        name: git
+        state: present
+      when: ansible_facts['distribution'] == "amazon"
+      register: al2_out
+        # - name: 3) create a file
+        # file:
+        # name: /dumpyfile
+        #state: directory
+        #- name: 4) execute  command module
+        # command: pwd
+
+
+          # - name: 5)  execute shell command
+        # shell:
+        # mkdir /testfolder
+        #cd /testfolder
+        #date >> testfile.txt
+    - command: date
+      register: date_op
+
+    - name: print  ubuntu output
+      debug:
+       msg: message is {{ date_op.stdout }} for printing purposes #jinjia template
+    - name: print all al2 output
+      debug:
+        var: date_op
+        # var:  al2_out.stdout
+                                                                                                         

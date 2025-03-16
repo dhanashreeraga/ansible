@@ -1,0 +1,17 @@
+- hosts: al2
+  tasks:
+   - name: 1) print all  working dir
+     command: pwd
+     register: output_pwd # variable name
+
+   - name: 2) print file register output
+     debug: # that previous execution are not
+       msg: this is print a msg  with var output {{ output_pwd.stdout }}
+
+   - name: 3) print the register output as msg
+     debug:
+       var: output_pwd.stdout
+
+   - name: print all available facts
+     ansible.builtin.debug:
+       var: ansible_facts

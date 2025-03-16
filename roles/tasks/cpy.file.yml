@@ -1,0 +1,5 @@
+- name: copy testfile to newfile
+  copy:
+    src: /home/ec2-user/file-from-role
+    dest: /home/ec2-user/copied-from-role
+    remote_src: true

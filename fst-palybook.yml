@@ -1,0 +1,37 @@
+
+---
+- name: my-first-playbook
+  hosts: localhost
+  become: true
+  tasks:
+    - apt:
+      # name: git        # git =1.2 version you can give
+        name: "{{ item }}"
+        state: present  # install git and absent is not install
+          #giving like sudo permisson  become :true intead writing a task make full make   outside a true
+      name: install some packages
+      with_items:
+           - git
+           - bc
+           - nginx
+
+    - name: create a file
+      ansible.builtin.file:
+        state: touch #if given file connot empty file
+        path: /home/ubuntu/newfile
+        owner: ubuntu
+        group: ubuntu
+        mode: '0755' #sticky bit
+
+
+    - name: copy a file
+      copy:
+        src: /home/ubuntu/testfile #remot_src is usec to backup to sourcr to dest if  my hosts is 192.6.7.8 is dest so it copy and to dest in 192.2
+        dest: /copiedfile
+        owner: root
+        group: root
+        mode: '700'
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted

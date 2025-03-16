@@ -1,0 +1,4 @@
+- name: create file
+  include_tasks: createfile.yml
+- name: copy file
+  include_tasks: copyfile.yml

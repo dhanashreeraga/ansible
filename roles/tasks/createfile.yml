@@ -1,0 +1,5 @@
+
+- name: create a file
+  file:
+    state: touch
+    path: /home/ec2-user/file-from-role
